@@ -24,7 +24,7 @@ class ServerSentEventsTransport(Transport):
 
     def send(self, data):
         response = self._session.post(self._get_url('send'), data={'data': json.dumps(data)})
-        parsed = json.loads(response.content)
+        parsed = response.json()
         self._connection.received.fire(**parsed)
 
     def close(self):
